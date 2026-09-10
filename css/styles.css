@@ -175,6 +175,8 @@ section{position:relative;}
   position:absolute; inset:0; z-index:-1; overflow:clip;
   background:
     radial-gradient(60% 55% at 14% 8%, rgba(110,193,228,.10), transparent 60%);
+  -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 60%, transparent 96%);
+  mask-image:linear-gradient(to bottom, #000 0%, #000 60%, transparent 96%);
 }
 .hero-wave{
   position:absolute; top:-12%; right:-18%; width:72%; height:135%;
