@@ -14,31 +14,6 @@
   window.addEventListener("scroll", onScrollHeader, { passive: true });
 
   /* ---------------------------------------------------------
-     Mobile menu
-  --------------------------------------------------------- */
-  const hamburger = document.getElementById("hamburger");
-  const mobileMenu = document.getElementById("mobile-menu");
-
-  const closeMenu = () => {
-    hamburger.setAttribute("aria-expanded", "false");
-    mobileMenu.classList.remove("is-open");
-    document.body.style.overflow = "";
-  };
-  const openMenu = () => {
-    hamburger.setAttribute("aria-expanded", "true");
-    mobileMenu.classList.add("is-open");
-    document.body.style.overflow = "hidden";
-  };
-  hamburger.addEventListener("click", () => {
-    const isOpen = hamburger.getAttribute("aria-expanded") === "true";
-    isOpen ? closeMenu() : openMenu();
-  });
-  mobileMenu.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeMenu();
-  });
-
-  /* ---------------------------------------------------------
      Scroll reveal (IntersectionObserver)
   --------------------------------------------------------- */
   const revealEls = document.querySelectorAll(".reveal");
