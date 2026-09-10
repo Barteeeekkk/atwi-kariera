@@ -224,9 +224,8 @@ section{position:relative;}
   .hero-orb{ animation:none; }
 }
 
-.hero-inner{
-  display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:3rem;
-}
+.hero-inner{ display:flex; justify-content:center; }
+.hero-copy{ max-width:760px; text-align:center; }
 .hero-title{
   font-weight:800; letter-spacing:-.02em; color:var(--color-heading);
   font-size:clamp(2.4rem, 5.6vw, 4.4rem);
@@ -234,7 +233,7 @@ section{position:relative;}
   margin:.6rem 0 1.6rem;
 }
 .hero-title .line{ display:block; white-space:nowrap; }
-.hero-title .line-indent{ padding-left:.9em; }
+.hero-title .line-indent{ padding-left:0; }
 
 .hero-title em.kinetic{
   font-style:normal; position:relative; display:inline-block;
@@ -261,14 +260,14 @@ section{position:relative;}
 
 .hero-marquee{
   font-size:1.1rem; color:var(--color-secondary); font-weight:500;
-  display:flex; flex-wrap:wrap; gap:.55rem; align-items:center;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:.55rem; align-items:center;
   margin-bottom:2.2rem;
 }
 .hero-marquee .dot{ color:var(--color-primary); font-size:.6rem; }
 
 .benefit-grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:.85rem 1.6rem;
-  margin-bottom:2.4rem;
+  display:inline-grid; grid-template-columns:1fr 1fr; gap:.85rem 1.6rem;
+  margin:0 auto 2.4rem; text-align:left;
 }
 .benefit-grid li{
   display:flex; align-items:flex-start; gap:.7rem;
@@ -302,10 +301,7 @@ section{position:relative;}
 }
 .info-dot:hover::after, .info-dot:focus-visible::after{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
 
-.hero-cta{ display:flex; flex-wrap:wrap; gap:1rem; }
-
-.hero-media{ position:relative; }
-.hero-media img{ width:100%; height:auto; }
+.hero-cta{ display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; }
 
 .float-slow{ animation:floaty 6s ease-in-out infinite; }
 @keyframes floaty{
@@ -313,16 +309,7 @@ section{position:relative;}
   50%{ transform:translateY(-14px); }
 }
 
-/* =========================================================
-   Hero scene: illustration (transparent PNG, no background of
-   its own so the page's wave shows through behind it)
-   ========================================================= */
-.hero-scene{ position:relative; }
-.hero-scene img{ width:100%; height:auto; display:block; }
-
-@media (max-width:1024px){
-  .hero-inner{ grid-template-columns:1fr; }
-  .hero-media{ order:-1; max-width:420px; margin-inline:auto; }
+@media (max-width:700px){
   .benefit-grid{ grid-template-columns:1fr; }
 }
 @media (max-width:600px){
@@ -414,9 +401,11 @@ section{position:relative;}
   background:var(--color-bg-navy);
   border-radius:var(--radius-lg);
   padding:clamp(2rem,4vw,3.5rem);
-  display:grid; grid-template-columns:.85fr 1.3fr; gap:clamp(2rem,4vw,3.5rem);
-  align-items:center;
+  display:grid; place-items:center;
+  text-align:center;
 }
+.community-copy{ max-width:640px; }
+.community-copy .community-stats{ justify-content:center; }
 .community-copy h2{
   color:#fff; font-size:clamp(1.6rem,3.2vw,2.4rem); font-weight:800;
   line-height:1.15; letter-spacing:-.01em; margin-bottom:1rem;
@@ -690,3 +679,21 @@ section{position:relative;}
 .footer-links a{ color:#DCEBF5; font-size:.9rem; font-weight:500; transition:color var(--dur-s) var(--ease); }
 .footer-links a:hover{ color:var(--color-primary); }
 .footer-copy{ color:#7C93BE; font-size:.82rem; margin-top:.6rem; }
+
+/* =========================================================
+   Cursor companion: a little dollar coin that trails the pointer
+   ========================================================= */
+.cursor-dollar{
+  position:fixed; top:0; left:0; z-index:70;
+  pointer-events:none; will-change:transform;
+  opacity:0; transition:opacity .3s ease;
+}
+.cursor-dollar.is-active{ opacity:1; }
+.cursor-dollar svg{ display:block; filter:drop-shadow(0 6px 14px rgba(35,164,85,.35)); }
+
+@media (prefers-reduced-motion:reduce){
+  .cursor-dollar{ display:none; }
+}
+@media (hover:none), (pointer:coarse){
+  .cursor-dollar{ display:none; }
+}

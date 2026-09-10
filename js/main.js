@@ -57,6 +57,60 @@
     );
   }
 
+  /* ---------------------------------------------------------
+     Cursor companion: a little dollar coin that trails the pointer.
+  --------------------------------------------------------- */
+  const dollar = document.getElementById("cursor-dollar");
+  const canFollowPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (dollar && !reducedMotion && canFollowPointer) {
+    const SIZE = 42;
+    let mouseX = 0;
+    let mouseY = 0;
+    let curX = 0;
+    let curY = 0;
+    let curAngle = 0;
+    let hasMouse = false;
+
+    const place = (x, y, angleDeg) => {
+      dollar.style.transform = `translate(${x - SIZE / 2}px, ${y - SIZE / 2}px) rotate(${angleDeg}deg)`;
+    };
+
+    const loop = (now) => {
+      const dx = mouseX - curX;
+      const dy = mouseY - curY - 34; // hover slightly above the cursor
+      curX += dx * 0.14;
+      curY += dy * 0.14;
+      const bob = Math.sin(now / 260) * 6;
+      const speed = Math.hypot(dx, dy);
+      const targetAngle = speed > 1.5 ? Math.atan2(dx, dy) * (180 / Math.PI) * 0.18 : 0;
+      curAngle += (targetAngle - curAngle) * 0.1;
+      place(curX, curY + bob, curAngle);
+      requestAnimationFrame(loop);
+    };
+
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!hasMouse) {
+          hasMouse = true;
+          curX = mouseX;
+          curY = mouseY - 34;
+          dollar.classList.add("is-active");
+          requestAnimationFrame(loop);
+        }
+      },
+      { passive: true }
+    );
+
+    document.addEventListener("mouseleave", () => dollar.classList.remove("is-active"));
+    document.addEventListener("mouseenter", () => {
+      if (hasMouse) dollar.classList.add("is-active");
+    });
+  }
+
 
   /* ---------------------------------------------------------
      Job listings data + render
