@@ -367,8 +367,20 @@ section{position:relative;}
 
 @media (max-width:1024px){
   .hero-inner{ grid-template-columns:1fr; }
-  .hero-media{ order:-1; max-width:420px; margin-inline:auto; }
+  .hero-media{ order:-1; max-width:420px; margin-inline:auto; position:relative; }
   .benefit-grid{ grid-template-columns:1fr; }
+
+  /* The desktop wave is positioned for the side-by-side layout and no
+     longer lines up with the illustration once it moves above the text,
+     so swap it for a self-contained backdrop scoped to the image itself. */
+  .hero-wave, .hero-orb{ display:none; }
+  .hero-media::before{
+    content:"";
+    position:absolute; inset:-6% -8% 6%;
+    background:linear-gradient(155deg, var(--color-primary) 0%, #8AD2EC 55%, #BEE6F5 100%);
+    border-radius:32px;
+    z-index:-1;
+  }
 }
 @media (max-width:600px){
   .hero{ padding:40px 0 64px; }
