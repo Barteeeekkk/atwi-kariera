@@ -307,10 +307,85 @@ section{position:relative;}
 .hero-media{ position:relative; }
 .hero-media img{ width:100%; height:auto; }
 
+.hero-illustration{ position:relative; }
+.hero-illustration img{ width:100%; height:auto; display:block; }
+
 .float-slow{ animation:floaty 6s ease-in-out infinite; }
 @keyframes floaty{
   0%,100%{ transform:translateY(0px); }
   50%{ transform:translateY(-14px); }
+}
+
+/* --- Illustration overlays: screen glow, activity glow, growing charts --- */
+.hero-glow{
+  position:absolute; border-radius:50%; pointer-events:none;
+  filter:blur(16px); mix-blend-mode:multiply; opacity:.6;
+  animation:glow-pulse 4.2s ease-in-out infinite;
+}
+.hero-glow-screen{
+  left:19%; top:60%; width:22%; height:16%;
+  animation-name:glow-pulse-screen;
+}
+.hero-glow-bags{
+  left:45%; top:52%; width:16%; height:15%;
+  animation-name:glow-pulse-bags; animation-duration:3.2s; opacity:.5;
+}
+@keyframes glow-pulse-screen{
+  0%,100%{ background:var(--color-primary); transform:scale(1); }
+  50%{ background:var(--color-accent); transform:scale(1.12); }
+}
+@keyframes glow-pulse-bags{
+  0%,100%{ background:var(--color-accent); transform:scale(.9) translateY(0); }
+  50%{ background:var(--color-primary); transform:scale(1.05) translateY(-3px); }
+}
+
+.hero-rocket-mask{
+  position:absolute; pointer-events:none;
+  left:15%; top:38%; width:22%; height:20%;
+  background:radial-gradient(circle, #fff 50%, rgba(255,255,255,0) 78%);
+  filter:blur(4px);
+  opacity:0; transition:opacity .5s ease;
+}
+.hero-rocket-mask.is-visible{ opacity:1; }
+
+.hero-chart-overlay{
+  position:absolute; overflow:visible; pointer-events:none;
+}
+.hero-chart-overlay .bar{ transform-box:fill-box; transform-origin:bottom; }
+.hero-chart-a{ left:56.5%; top:23.5%; width:14.5%; height:9%; }
+.hero-chart-b{ left:71.5%; top:39%; width:14%; height:10%; }
+
+.hero-chart-a .bar:nth-child(1){ height:26; animation:bar-grow-1 2.6s ease-in-out infinite; }
+.hero-chart-a .bar:nth-child(2){ height:38; animation:bar-grow-2 2.6s ease-in-out infinite .15s; }
+.hero-chart-a .bar:nth-child(3){ height:48; animation:bar-grow-3 2.6s ease-in-out infinite .3s; }
+.hero-chart-a .bar:nth-child(4){ height:34; animation:bar-grow-2 2.6s ease-in-out infinite .45s; }
+.hero-chart-a .bar:nth-child(5){ height:20; animation:bar-grow-1 2.6s ease-in-out infinite .6s; }
+
+.hero-chart-b .bar:nth-child(1){ height:22; animation:bar-grow-1 2.3s ease-in-out infinite .1s; }
+.hero-chart-b .bar:nth-child(2){ height:44; animation:bar-grow-3 2.3s ease-in-out infinite .3s; }
+.hero-chart-b .bar:nth-child(3){ height:30; animation:bar-grow-2 2.3s ease-in-out infinite .5s; }
+.hero-chart-b .bar:nth-child(4){ height:16; animation:bar-grow-1 2.3s ease-in-out infinite .7s; }
+
+@keyframes bar-grow-1{ 0%,100%{ transform:scaleY(.55); } 50%{ transform:scaleY(1); } }
+@keyframes bar-grow-2{ 0%,100%{ transform:scaleY(.65); } 50%{ transform:scaleY(1.05); } }
+@keyframes bar-grow-3{ 0%,100%{ transform:scaleY(.7); } 50%{ transform:scaleY(1.08); } }
+
+@media (prefers-reduced-motion:reduce){
+  .hero-glow{ animation:none; }
+  .hero-chart-a .bar, .hero-chart-b .bar{ animation:none; }
+}
+
+/* --- Companion rocket: launches, loops, then follows the cursor --- */
+.hero-rocket{
+  position:fixed; top:0; left:0; z-index:60;
+  pointer-events:none; will-change:transform;
+  opacity:0; transform:translate(-1000px,-1000px);
+}
+.hero-rocket.is-active{ opacity:1; }
+.hero-rocket svg{ display:block; filter:drop-shadow(0 8px 16px rgba(64,84,178,.28)); }
+
+@media (prefers-reduced-motion:reduce){
+  .hero-rocket{ display:none; }
 }
 
 @media (max-width:1024px){

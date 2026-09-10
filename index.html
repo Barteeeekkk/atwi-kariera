@@ -103,7 +103,29 @@
       </div>
 
       <div class="hero-media reveal" style="--d:3">
-        <img src="assets/images/hero-illustration.png" alt="Zespół ATWI pracujący nad projektami IT i marketingowymi" class="float-slow" width="560" height="514" loading="eager">
+        <div class="hero-illustration float-slow" id="hero-illustration">
+          <img src="assets/images/hero-illustration.png" alt="Zespół ATWI pracujący nad projektami IT i marketingowymi" width="560" height="514" loading="eager">
+
+          <span class="hero-glow hero-glow-screen" aria-hidden="true"></span>
+          <span class="hero-glow hero-glow-bags" aria-hidden="true"></span>
+
+          <svg class="hero-chart-overlay hero-chart-a" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+            <rect class="bar" x="4"  width="12" fill="#4054B2"/>
+            <rect class="bar" x="22" width="12" fill="#6EC1E4"/>
+            <rect class="bar" x="40" width="12" fill="#8AD2EC"/>
+            <rect class="bar" x="58" width="12" fill="#6EC1E4"/>
+            <rect class="bar" x="76" width="12" fill="#4054B2"/>
+          </svg>
+
+          <svg class="hero-chart-overlay hero-chart-b" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+            <rect class="bar" x="6"  width="14" fill="#8AD2EC"/>
+            <rect class="bar" x="28" width="14" fill="#4054B2"/>
+            <rect class="bar" x="50" width="14" fill="#6EC1E4"/>
+            <rect class="bar" x="72" width="14" fill="#4054B2"/>
+          </svg>
+
+          <span class="hero-rocket-mask" id="hero-rocket-mask" aria-hidden="true"></span>
+        </div>
       </div>
     </div>
   </section>
@@ -314,6 +336,21 @@
     <p class="footer-copy">&copy; <span id="year"></span> ATWI. Wszystkie prawa zastrzeżone.</p>
   </div>
 </footer>
+
+<div class="hero-rocket" id="hero-rocket" aria-hidden="true">
+  <svg viewBox="0 0 60 92" width="46" height="70">
+    <ellipse cx="30" cy="84" rx="13" ry="4" fill="#4054B2" opacity=".18"/>
+    <path d="M30 2C43 18 47 42 41 64L19 64C13 42 17 18 30 2Z" fill="#8AD2EC"/>
+    <path d="M30 2C37 18 39 42 36 64L30 64Z" fill="#6EC1E4"/>
+    <path d="M19 58 L9 76 L19 68 Z" fill="#4054B2"/>
+    <path d="M41 58 L51 76 L41 68 Z" fill="#4054B2"/>
+    <path d="M21 64 L18 82 L25 70 Z" fill="#6EC1E4"/>
+    <path d="M39 64 L42 82 L35 70 Z" fill="#6EC1E4"/>
+    <circle cx="30" cy="30" r="9" fill="#F4FBFD"/>
+    <circle cx="30" cy="30" r="5.5" fill="#2E3A6B"/>
+    <circle cx="27.5" cy="27.5" r="1.6" fill="#fff" opacity=".8"/>
+  </svg>
+</div>
 
 <script src="js/main.js"></script>
 </body>

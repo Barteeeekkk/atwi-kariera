@@ -58,6 +58,124 @@
   }
 
   /* ---------------------------------------------------------
+     Companion rocket: launches from the illustration, loops,
+     then trails the cursor for the rest of the visit.
+  --------------------------------------------------------- */
+  const rocket = document.getElementById("hero-rocket");
+  const illustration = document.getElementById("hero-illustration");
+
+  if (rocket && illustration && !reducedMotion) {
+    const canFollowPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const ROCKET_W = 46;
+    const ROCKET_H = 70;
+    // Center of the rocket as it appears inside the source illustration (% of image box).
+    const ORIGIN_X_PCT = 0.256;
+    const ORIGIN_Y_PCT = 0.488;
+
+    let originX = 0;
+    let originY = 0;
+    const computeOrigin = () => {
+      const rect = illustration.getBoundingClientRect();
+      originX = rect.left + rect.width * ORIGIN_X_PCT;
+      originY = rect.top + rect.height * ORIGIN_Y_PCT;
+    };
+    computeOrigin();
+    window.addEventListener("resize", computeOrigin, { passive: true });
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let hasMouse = false;
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        hasMouse = true;
+      },
+      { passive: true }
+    );
+
+    const place = (x, y, angleDeg) => {
+      rocket.style.transform = `translate(${x - ROCKET_W / 2}px, ${y - ROCKET_H / 2}px) rotate(${angleDeg}deg)`;
+    };
+
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const easeInCubic = (t) => t * t * t;
+
+    let curX = 0;
+    let curY = 0;
+    let curAngle = 0;
+
+    const follow = (now) => {
+      let targetX;
+      let targetY;
+      if (hasMouse && canFollowPointer) {
+        targetX = mouseX;
+        targetY = mouseY - 44;
+      } else {
+        targetX = originX;
+        targetY = originY - 170 + Math.sin(now / 900) * 10;
+      }
+      const dx = targetX - curX;
+      const dy = targetY - curY;
+      curX += dx * 0.07;
+      curY += dy * 0.07;
+      const speed = Math.hypot(dx, dy);
+      const targetAngle = speed > 1.2 ? Math.atan2(dx, -dy) * (180 / Math.PI) : 0;
+      curAngle += (targetAngle - curAngle) * 0.12;
+      place(curX, curY, curAngle * 0.4);
+      requestAnimationFrame(follow);
+    };
+
+    const originMask = document.getElementById("hero-rocket-mask");
+
+    const launch = () => {
+      computeOrigin();
+      rocket.classList.add("is-active");
+      if (originMask) originMask.classList.add("is-visible");
+      const duration = 1900;
+      const riseHeight = 170;
+      const loopRadius = 58;
+      const start = performance.now();
+
+      const pointAt = (t) => {
+        if (t < 0.55) {
+          const p = easeOutCubic(t / 0.55);
+          return { x: originX, y: originY - riseHeight * p, angle: -10 };
+        }
+        if (t < 0.9) {
+          const p = (t - 0.55) / 0.35;
+          const ang = p * Math.PI * 2;
+          return {
+            x: originX + Math.sin(ang) * loopRadius,
+            y: originY - riseHeight - Math.cos(ang) * loopRadius + loopRadius,
+            angle: (ang * 180) / Math.PI,
+          };
+        }
+        const p = easeInCubic((t - 0.9) / 0.1);
+        return { x: originX, y: originY - riseHeight * (1 - p) - 24, angle: 0 };
+      };
+
+      const frame = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const pt = pointAt(t);
+        place(pt.x, pt.y, pt.angle);
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          curX = pt.x;
+          curY = pt.y;
+          curAngle = 0;
+          requestAnimationFrame(follow);
+        }
+      };
+      requestAnimationFrame(frame);
+    };
+
+    setTimeout(launch, 1300);
+  }
+
+  /* ---------------------------------------------------------
      Job listings data + render
   --------------------------------------------------------- */
   const jobs = [
