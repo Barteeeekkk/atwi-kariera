@@ -319,9 +319,9 @@ section{position:relative;}
 /* --- Illustration overlays: rocket launch mask, growing charts --- */
 .hero-rocket-mask{
   position:absolute; pointer-events:none;
-  left:12%; top:35%; width:28%; height:26%;
-  background:radial-gradient(circle, #fff 0%, #fff 62%, rgba(255,255,255,0) 92%);
-  opacity:0; transition:opacity .5s ease;
+  left:15%; top:38%; width:21%; height:22%;
+  background:#fff;
+  opacity:0; transition:opacity .4s ease;
 }
 .hero-rocket-mask.is-visible{ opacity:1; }
 
