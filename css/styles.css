@@ -401,11 +401,9 @@ section{position:relative;}
   background:var(--color-bg-navy);
   border-radius:var(--radius-lg);
   padding:clamp(2rem,4vw,3.5rem);
-  display:grid; place-items:center;
-  text-align:center;
+  display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(2rem,4vw,3.5rem);
+  align-items:center;
 }
-.community-copy{ max-width:640px; }
-.community-copy .community-stats{ justify-content:center; }
 .community-copy h2{
   color:#fff; font-size:clamp(1.6rem,3.2vw,2.4rem); font-weight:800;
   line-height:1.15; letter-spacing:-.01em; margin-bottom:1rem;
@@ -420,56 +418,19 @@ section{position:relative;}
 .stat-num{ display:block; color:#fff; font-size:1.6rem; font-weight:800; letter-spacing:-.01em; }
 .stat-label{ display:block; color:#9FB6DC; font-size:.76rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-top:.2rem; }
 
-.community-collage{
-  position:relative; background:#fff; border-radius:var(--radius-lg);
-  padding:clamp(1.2rem,2.5vw,2rem); overflow:hidden;
-}
-.doodle{ position:absolute; width:34px; height:34px; opacity:.9; pointer-events:none; }
-.doodle-a{ top:4%; right:8%; }
-.doodle-b{ top:38%; left:2%; width:26px; height:26px; }
-.doodle-c{ bottom:6%; right:4%; }
-.doodle-d{ bottom:10%; left:38%; width:30px; height:30px; }
-
-.collage-grid{
-  display:grid; grid-template-columns:repeat(4,1fr); gap:12px; position:relative; z-index:1;
-}
-.collage-item{
-  position:relative; margin:0; border-radius:10px; overflow:hidden;
-  background:var(--color-bg-alt);
-  border:3px solid var(--color-primary);
-  box-shadow:0 10px 22px rgba(20,30,60,.14);
-  transform:rotate(var(--rot,0deg));
-  transition:transform var(--dur-s) var(--ease), box-shadow var(--dur-s) var(--ease);
-}
-.collage-item:hover{ transform:rotate(0deg) scale(1.04); box-shadow:var(--shadow-lg); z-index:2; }
-
-/* Fixed aspect ratio per slot (no grid spans) keeps total collage height
-   predictable regardless of how many photos are added later. */
-.ratio-portrait{ aspect-ratio:3/4; }
-.ratio-square{ aspect-ratio:1/1; }
-.ratio-landscape{ aspect-ratio:4/3; }
-
-.accent-blue{ border-color:var(--color-primary); }
-.accent-navy{ border-color:var(--color-primary-dark); }
-.accent-green{ border-color:var(--color-accent); }
-.accent-amber{ border-color:#F0B429; }
-
-.collage-item img{ display:block; width:100%; height:100%; object-fit:cover; }
-.collage-item img.is-empty{ display:none; }
-.collage-ph{ display:none; }
-.collage-ph.is-empty{
-  display:flex; align-items:center; justify-content:center;
-  width:100%; height:100%;
-  background:repeating-linear-gradient(135deg, #EEF3F6, #EEF3F6 8px, #E4EBF0 8px, #E4EBF0 16px);
-  color:var(--color-text-soft); font-size:.78rem; font-weight:700; letter-spacing:.02em;
+.community-media img{
+  display:block; width:100%; height:auto;
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);
 }
 
 @media (max-width:900px){
-  .community-card{ grid-template-columns:1fr; }
+  .community-card{ grid-template-columns:1fr; text-align:center; }
+  .community-copy{ max-width:520px; margin-inline:auto; }
+  .community-stats{ justify-content:center; }
 }
 @media (max-width:600px){
   .community{ padding:0 0 24px; }
-  .collage-grid{ grid-template-columns:repeat(3,1fr); gap:8px; }
 }
 
 /* =========================================================
