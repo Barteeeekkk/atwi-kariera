@@ -1,9 +1,3 @@
-@property --ang{
-  syntax:'<angle>';
-  inherits:true;
-  initial-value:0deg;
-}
-
 /* =========================================================
    ATWI Kariera — design tokens
    Paleta i typografia zachowane z oryginalnej strony
@@ -320,65 +314,12 @@ section{position:relative;}
 }
 
 /* =========================================================
-   Hero scene: animated staircase + walking figure
-   (replaces the old raster illustration)
+   Hero scene: static vector illustration
+   (replaces the old raster illustration; no background of its
+   own so the page's wave shows through behind it)
    ========================================================= */
-.hero-scene{
-  position:relative; width:100%; aspect-ratio:1/1;
-  border-radius:32px; overflow:hidden; box-shadow:var(--shadow-lg);
-}
+.hero-scene{ position:relative; width:100%; aspect-ratio:1/1; }
 .stairs-svg{ display:block; width:100%; height:100%; }
-
-.hero-shadow{ transform-box:view-box; animation:shadow-sway 7s ease-in-out infinite; }
-@keyframes shadow-sway{
-  0%,100%{ transform:translate(150px,60px) scale(1.55) rotate(0deg); }
-  50%{ transform:translate(150px,60px) scale(1.55) rotate(1.2deg); }
-}
-
-/* Endless staircase: shifting exactly one step per cycle loops seamlessly */
-.steps-track{ animation:steps-scroll 2.6s linear infinite; }
-@keyframes steps-scroll{
-  0%{ transform:translate(0,0); }
-  100%{ transform:translate(-48px,34px); }
-}
-
-/* Walking figure: legs/arms swing around their hip/shoulder pivot,
-   torso+head bob on every other step. */
-.limb{
-  transform-box:view-box;
-  transform-origin:var(--px) var(--py);
-  transform:rotate(var(--ang,0deg));
-}
-.leg-back{ animation:swing-back 1.3s ease-in-out infinite; }
-.leg-front{ animation:swing-front 1.3s ease-in-out infinite; }
-.arm-back{ animation:swing-front 1.3s ease-in-out infinite; }
-.arm-front{ animation:swing-arm-front 1.3s ease-in-out infinite; }
-
-@keyframes swing-front{
-  0%,100%{ --ang:26deg; }
-  50%{ --ang:-24deg; }
-}
-@keyframes swing-back{
-  0%,100%{ --ang:-24deg; }
-  50%{ --ang:26deg; }
-}
-@keyframes swing-arm-front{
-  0%,100%{ --ang:-8deg; }
-  50%{ --ang:6deg; }
-}
-
-.torso-bob{
-  transform-box:view-box; transform-origin:231px 300px;
-  animation:torso-bob 0.65s ease-in-out infinite;
-}
-@keyframes torso-bob{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-4px); }
-}
-
-@media (prefers-reduced-motion:reduce){
-  .hero-shadow, .steps-track, .limb, .torso-bob{ animation:none; }
-}
 
 @media (max-width:1024px){
   .hero-inner{ grid-template-columns:1fr; }
