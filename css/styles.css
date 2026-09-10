@@ -316,34 +316,11 @@ section{position:relative;}
   50%{ transform:translateY(-14px); }
 }
 
-/* --- Illustration overlays: screen glow, activity glow, growing charts --- */
-.hero-glow{
-  position:absolute; border-radius:50%; pointer-events:none;
-  filter:blur(16px); mix-blend-mode:multiply; opacity:.6;
-  animation:glow-pulse 4.2s ease-in-out infinite;
-}
-.hero-glow-screen{
-  left:19%; top:60%; width:22%; height:16%;
-  animation-name:glow-pulse-screen;
-}
-.hero-glow-bags{
-  left:45%; top:52%; width:16%; height:15%;
-  animation-name:glow-pulse-bags; animation-duration:3.2s; opacity:.5;
-}
-@keyframes glow-pulse-screen{
-  0%,100%{ background:var(--color-primary); transform:scale(1); }
-  50%{ background:var(--color-accent); transform:scale(1.12); }
-}
-@keyframes glow-pulse-bags{
-  0%,100%{ background:var(--color-accent); transform:scale(.9) translateY(0); }
-  50%{ background:var(--color-primary); transform:scale(1.05) translateY(-3px); }
-}
-
+/* --- Illustration overlays: rocket launch mask, growing charts --- */
 .hero-rocket-mask{
   position:absolute; pointer-events:none;
-  left:15%; top:38%; width:22%; height:20%;
-  background:radial-gradient(circle, #fff 50%, rgba(255,255,255,0) 78%);
-  filter:blur(4px);
+  left:12%; top:35%; width:28%; height:26%;
+  background:radial-gradient(circle, #fff 0%, #fff 62%, rgba(255,255,255,0) 92%);
   opacity:0; transition:opacity .5s ease;
 }
 .hero-rocket-mask.is-visible{ opacity:1; }

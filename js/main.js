@@ -121,39 +121,46 @@
       curX += dx * 0.07;
       curY += dy * 0.07;
       const speed = Math.hypot(dx, dy);
-      const targetAngle = speed > 1.2 ? Math.atan2(dx, -dy) * (180 / Math.PI) : 0;
+      const targetAngle = speed > 1.2 ? Math.atan2(dx, -dy) * (180 / Math.PI) : curAngle;
       curAngle += (targetAngle - curAngle) * 0.12;
-      place(curX, curY, curAngle * 0.4);
+      place(curX, curY, curAngle);
       requestAnimationFrame(follow);
     };
 
     const originMask = document.getElementById("hero-rocket-mask");
+    const easeInOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
 
     const launch = () => {
       computeOrigin();
       rocket.classList.add("is-active");
       if (originMask) originMask.classList.add("is-visible");
-      const duration = 1900;
-      const riseHeight = 170;
-      const loopRadius = 58;
+      const duration = 2000;
+      const riseHeight = 150;
+      const loopRadius = 56;
       const start = performance.now();
 
+      // Loop phase traces a circle whose tangent at entry matches the
+      // rise phase's straight-up velocity, so the nose follows the curve
+      // instead of spinning independently.
+      const riseTop = () => originY - riseHeight;
+      const loopCenterX = () => originX + loopRadius;
+
       const pointAt = (t) => {
-        if (t < 0.55) {
-          const p = easeOutCubic(t / 0.55);
-          return { x: originX, y: originY - riseHeight * p, angle: -10 };
+        if (t < 0.45) {
+          const p = easeOutCubic(t / 0.45);
+          return { x: originX, y: originY - riseHeight * p, angle: -6 * (1 - p) };
         }
-        if (t < 0.9) {
-          const p = (t - 0.55) / 0.35;
-          const ang = p * Math.PI * 2;
+        if (t < 0.85) {
+          const s = easeInOutSine((t - 0.45) / 0.4);
+          const theta = s * Math.PI * 2;
           return {
-            x: originX + Math.sin(ang) * loopRadius,
-            y: originY - riseHeight - Math.cos(ang) * loopRadius + loopRadius,
-            angle: (ang * 180) / Math.PI,
+            x: loopCenterX() - loopRadius * Math.cos(theta),
+            y: riseTop() - loopRadius * Math.sin(theta),
+            angle: (theta * 180) / Math.PI,
           };
         }
-        const p = easeInCubic((t - 0.9) / 0.1);
-        return { x: originX, y: originY - riseHeight * (1 - p) - 24, angle: 0 };
+        const p = easeInCubic((t - 0.85) / 0.15);
+        return { x: originX, y: riseTop() - 24 * p, angle: 0 };
       };
 
       const frame = (now) => {
