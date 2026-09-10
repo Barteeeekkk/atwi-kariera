@@ -28,7 +28,24 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <div class="hero-shape" aria-hidden="true"></div>
+    <div class="hero-shape" aria-hidden="true">
+      <svg class="hero-wave hero-wave-main" viewBox="0 0 900 900" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="heroWaveGrad" x1="10%" y1="0%" x2="75%" y2="100%">
+            <stop offset="0%" stop-color="#6EC1E4"/>
+            <stop offset="55%" stop-color="#8AD2EC"/>
+            <stop offset="100%" stop-color="#BEE6F5"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#heroWaveGrad)" d="M300,0 C120,140 420,260 260,430 C130,570 380,720 240,900 L900,900 L900,0 Z"/>
+      </svg>
+      <svg class="hero-wave hero-wave-soft" viewBox="0 0 900 900" preserveAspectRatio="none">
+        <path fill="#EAF6FB" d="M420,0 C260,160 520,300 380,470 C270,600 480,760 360,900 L900,900 L900,0 Z"/>
+      </svg>
+      <span class="hero-orb hero-orb-a"></span>
+      <span class="hero-orb hero-orb-b"></span>
+      <span class="hero-orb hero-orb-c"></span>
+    </div>
     <div class="container hero-inner">
       <div class="hero-copy">
         <p class="eyebrow reveal">Kariera w ATWI</p>
