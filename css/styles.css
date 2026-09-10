@@ -314,12 +314,11 @@ section{position:relative;}
 }
 
 /* =========================================================
-   Hero scene: static vector illustration
-   (replaces the old raster illustration; no background of its
-   own so the page's wave shows through behind it)
+   Hero scene: illustration (transparent PNG, no background of
+   its own so the page's wave shows through behind it)
    ========================================================= */
-.hero-scene{ position:relative; width:100%; aspect-ratio:1/1; }
-.stairs-svg{ display:block; width:100%; height:100%; }
+.hero-scene{ position:relative; }
+.hero-scene img{ width:100%; height:auto; display:block; }
 
 @media (max-width:1024px){
   .hero-inner{ grid-template-columns:1fr; }
