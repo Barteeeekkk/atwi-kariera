@@ -1,3 +1,9 @@
+@property --ang{
+  syntax:'<angle>';
+  inherits:true;
+  initial-value:0deg;
+}
+
 /* =========================================================
    ATWI Kariera — design tokens
    Paleta i typografia zachowane z oryginalnej strony
@@ -307,80 +313,77 @@ section{position:relative;}
 .hero-media{ position:relative; }
 .hero-media img{ width:100%; height:auto; }
 
-.hero-illustration{ position:relative; }
-.hero-illustration img{ width:100%; height:auto; display:block; }
-
 .float-slow{ animation:floaty 6s ease-in-out infinite; }
 @keyframes floaty{
   0%,100%{ transform:translateY(0px); }
   50%{ transform:translateY(-14px); }
 }
 
-/* --- Illustration overlays: rocket launch mask, growing charts --- */
-.hero-rocket-mask{
-  position:absolute; pointer-events:none;
-  left:15%; top:38%; width:21%; height:22%;
-  background:#fff;
-  opacity:0; transition:opacity .4s ease;
+/* =========================================================
+   Hero scene: animated staircase + walking figure
+   (replaces the old raster illustration)
+   ========================================================= */
+.hero-scene{
+  position:relative; width:100%; aspect-ratio:1/1;
+  border-radius:32px; overflow:hidden; box-shadow:var(--shadow-lg);
 }
-.hero-rocket-mask.is-visible{ opacity:1; }
+.stairs-svg{ display:block; width:100%; height:100%; }
 
-.hero-chart-overlay{
-  position:absolute; overflow:visible; pointer-events:none;
+.hero-shadow{ transform-box:view-box; animation:shadow-sway 7s ease-in-out infinite; }
+@keyframes shadow-sway{
+  0%,100%{ transform:translate(150px,60px) scale(1.55) rotate(0deg); }
+  50%{ transform:translate(150px,60px) scale(1.55) rotate(1.2deg); }
 }
-.hero-chart-overlay .bar{ transform-box:fill-box; transform-origin:bottom; }
-.hero-chart-a{ left:56.5%; top:23.5%; width:14.5%; height:9%; }
-.hero-chart-b{ left:71.5%; top:39%; width:14%; height:10%; }
 
-.hero-chart-a .bar:nth-child(1){ height:26; animation:bar-grow-1 2.6s ease-in-out infinite; }
-.hero-chart-a .bar:nth-child(2){ height:38; animation:bar-grow-2 2.6s ease-in-out infinite .15s; }
-.hero-chart-a .bar:nth-child(3){ height:48; animation:bar-grow-3 2.6s ease-in-out infinite .3s; }
-.hero-chart-a .bar:nth-child(4){ height:34; animation:bar-grow-2 2.6s ease-in-out infinite .45s; }
-.hero-chart-a .bar:nth-child(5){ height:20; animation:bar-grow-1 2.6s ease-in-out infinite .6s; }
+/* Endless staircase: shifting exactly one step per cycle loops seamlessly */
+.steps-track{ animation:steps-scroll 2.6s linear infinite; }
+@keyframes steps-scroll{
+  0%{ transform:translate(0,0); }
+  100%{ transform:translate(-48px,34px); }
+}
 
-.hero-chart-b .bar:nth-child(1){ height:22; animation:bar-grow-1 2.3s ease-in-out infinite .1s; }
-.hero-chart-b .bar:nth-child(2){ height:44; animation:bar-grow-3 2.3s ease-in-out infinite .3s; }
-.hero-chart-b .bar:nth-child(3){ height:30; animation:bar-grow-2 2.3s ease-in-out infinite .5s; }
-.hero-chart-b .bar:nth-child(4){ height:16; animation:bar-grow-1 2.3s ease-in-out infinite .7s; }
+/* Walking figure: legs/arms swing around their hip/shoulder pivot,
+   torso+head bob on every other step. */
+.limb{
+  transform-box:view-box;
+  transform-origin:var(--px) var(--py);
+  transform:rotate(var(--ang,0deg));
+}
+.leg-back{ animation:swing-back 1.3s ease-in-out infinite; }
+.leg-front{ animation:swing-front 1.3s ease-in-out infinite; }
+.arm-back{ animation:swing-front 1.3s ease-in-out infinite; }
+.arm-front{ animation:swing-arm-front 1.3s ease-in-out infinite; }
 
-@keyframes bar-grow-1{ 0%,100%{ transform:scaleY(.55); } 50%{ transform:scaleY(1); } }
-@keyframes bar-grow-2{ 0%,100%{ transform:scaleY(.65); } 50%{ transform:scaleY(1.05); } }
-@keyframes bar-grow-3{ 0%,100%{ transform:scaleY(.7); } 50%{ transform:scaleY(1.08); } }
+@keyframes swing-front{
+  0%,100%{ --ang:26deg; }
+  50%{ --ang:-24deg; }
+}
+@keyframes swing-back{
+  0%,100%{ --ang:-24deg; }
+  50%{ --ang:26deg; }
+}
+@keyframes swing-arm-front{
+  0%,100%{ --ang:-8deg; }
+  50%{ --ang:6deg; }
+}
+
+.torso-bob{
+  transform-box:view-box; transform-origin:231px 300px;
+  animation:torso-bob 0.65s ease-in-out infinite;
+}
+@keyframes torso-bob{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-4px); }
+}
 
 @media (prefers-reduced-motion:reduce){
-  .hero-glow{ animation:none; }
-  .hero-chart-a .bar, .hero-chart-b .bar{ animation:none; }
-}
-
-/* --- Companion rocket: launches, loops, then follows the cursor --- */
-.hero-rocket{
-  position:fixed; top:0; left:0; z-index:60;
-  pointer-events:none; will-change:transform;
-  opacity:0; transform:translate(-1000px,-1000px);
-}
-.hero-rocket.is-active{ opacity:1; }
-.hero-rocket svg{ display:block; filter:drop-shadow(0 8px 16px rgba(64,84,178,.28)); }
-
-@media (prefers-reduced-motion:reduce){
-  .hero-rocket{ display:none; }
+  .hero-shadow, .steps-track, .limb, .torso-bob{ animation:none; }
 }
 
 @media (max-width:1024px){
   .hero-inner{ grid-template-columns:1fr; }
-  .hero-media{ order:-1; max-width:420px; margin-inline:auto; position:relative; }
+  .hero-media{ order:-1; max-width:420px; margin-inline:auto; }
   .benefit-grid{ grid-template-columns:1fr; }
-
-  /* The desktop wave is positioned for the side-by-side layout and no
-     longer lines up with the illustration once it moves above the text,
-     so swap it for a self-contained backdrop scoped to the image itself. */
-  .hero-wave, .hero-orb{ display:none; }
-  .hero-media::before{
-    content:"";
-    position:absolute; inset:-6% -8% 6%;
-    background:linear-gradient(155deg, var(--color-primary) 0%, #8AD2EC 55%, #BEE6F5 100%);
-    border-radius:32px;
-    z-index:-1;
-  }
 }
 @media (max-width:600px){
   .hero{ padding:40px 0 64px; }

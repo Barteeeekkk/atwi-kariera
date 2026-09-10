@@ -103,25 +103,89 @@
       </div>
 
       <div class="hero-media reveal" style="--d:3">
-        <div class="hero-illustration float-slow" id="hero-illustration">
-          <img src="assets/images/hero-illustration.png" alt="Zespół ATWI pracujący nad projektami IT i marketingowymi" width="560" height="514" loading="eager">
+        <div class="hero-scene" role="img" aria-label="Animowana ilustracja: osoba wchodząca po schodach kariery">
+          <svg class="stairs-svg" viewBox="0 0 480 480" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <symbol id="step" viewBox="0 0 96 40">
+                <rect x="0" y="14" width="96" height="26" rx="4" fill="#DDEBF3"/>
+                <rect x="0" y="0" width="96" height="18" rx="4" fill="#EFF7FB"/>
+              </symbol>
+              <clipPath id="sceneClip">
+                <rect x="0" y="0" width="480" height="480" rx="32"/>
+              </clipPath>
+            </defs>
 
-          <svg class="hero-chart-overlay hero-chart-a" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
-            <rect class="bar" x="4"  width="12" fill="#4054B2"/>
-            <rect class="bar" x="22" width="12" fill="#6EC1E4"/>
-            <rect class="bar" x="40" width="12" fill="#8AD2EC"/>
-            <rect class="bar" x="58" width="12" fill="#6EC1E4"/>
-            <rect class="bar" x="76" width="12" fill="#4054B2"/>
+            <g clip-path="url(#sceneClip)">
+              <rect x="0" y="0" width="480" height="480" fill="url(#sceneBg)"/>
+              <linearGradient id="sceneBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#6EC1E4"/>
+                <stop offset="55%" stop-color="#8AD2EC"/>
+                <stop offset="100%" stop-color="#BEE6F5"/>
+              </linearGradient>
+
+              <!-- Hero shadow cast on the wall: the potential behind the everyday climb -->
+              <g class="hero-shadow" transform="translate(150,60) scale(1.55)">
+                <path d="M60,0 C90,4 108,34 106,70 C118,78 128,96 122,118 C138,122 150,140 144,160
+                         C160,168 166,190 152,206 C160,222 150,244 128,246
+                         C120,258 100,262 86,252 C70,262 48,256 42,240
+                         C22,240 6,222 12,202 C-4,192 -6,168 10,154
+                         C0,138 6,116 26,108 C20,90 32,68 54,64 C46,44 46,18 60,0 Z"
+                      fill="#1E2A55" opacity=".16"/>
+              </g>
+
+              <!-- Endless staircase (treadmill loop) -->
+              <g class="steps-track">
+                <use href="#step" transform="translate(-96,326)"/>
+                <use href="#step" transform="translate(-48,292)"/>
+                <use href="#step" transform="translate(0,258)"/>
+                <use href="#step" transform="translate(48,224)"/>
+                <use href="#step" transform="translate(96,190)"/>
+                <use href="#step" transform="translate(144,156)"/>
+                <use href="#step" transform="translate(192,122)"/>
+                <use href="#step" transform="translate(240,88)"/>
+                <use href="#step" transform="translate(288,54)"/>
+                <use href="#step" transform="translate(336,20)"/>
+                <use href="#step" transform="translate(384,-14)"/>
+                <use href="#step" transform="translate(432,-48)"/>
+              </g>
+
+              <!-- Walking figure (fixed on screen, cycles in place) -->
+              <g class="walker">
+                <ellipse cx="230" cy="300" rx="46" ry="10" fill="#1E2A55" opacity=".12"/>
+
+                <g class="limb arm-back" style="--px:214px; --py:222px;">
+                  <rect x="207" y="222" width="13" height="52" rx="6.5" fill="#33407A"/>
+                </g>
+
+                <g class="limb leg-back" style="--px:222px; --py:298px;">
+                  <rect x="215" y="298" width="15" height="66" rx="7.5" fill="#26305C"/>
+                  <rect x="211" y="356" width="26" height="11" rx="5.5" fill="#151B33"/>
+                </g>
+
+                <g class="limb leg-front" style="--px:240px; --py:298px;">
+                  <rect x="233" y="298" width="15" height="66" rx="7.5" fill="#3B4C8C"/>
+                  <rect x="229" y="356" width="26" height="11" rx="5.5" fill="#1B2340"/>
+                </g>
+
+                <g class="torso-bob">
+                  <path d="M212,300 C206,262 210,232 231,224 C252,232 256,262 250,300 Z" fill="#3B4C8C"/>
+                  <path d="M223,232 L231,224 L239,232 L233,252 L229,252 Z" fill="#F4F8FB"/>
+                  <rect x="229" y="234" width="4.5" height="16" rx="2" fill="#6EC1E4"/>
+
+                  <g class="limb arm-front" style="--px:246px; --py:224px;">
+                    <rect x="239" y="224" width="13" height="46" rx="6.5" fill="#4054B2"/>
+                    <circle cx="246" cy="272" r="7.5" fill="#F0C6A2"/>
+                    <rect x="248" y="268" width="20" height="22" rx="4" fill="#9C7B54"/>
+                    <rect x="248" y="273" width="20" height="4" fill="#7C5F3E"/>
+                  </g>
+
+                  <circle cx="233" cy="206" r="17" fill="#F0C6A2"/>
+                  <path d="M216,204 C214,188 224,178 236,180 C248,182 252,196 248,206
+                           C246,196 238,190 230,192 C222,194 218,198 216,204 Z" fill="#1B2340"/>
+                </g>
+              </g>
+            </g>
           </svg>
-
-          <svg class="hero-chart-overlay hero-chart-b" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
-            <rect class="bar" x="6"  width="14" fill="#8AD2EC"/>
-            <rect class="bar" x="28" width="14" fill="#4054B2"/>
-            <rect class="bar" x="50" width="14" fill="#6EC1E4"/>
-            <rect class="bar" x="72" width="14" fill="#4054B2"/>
-          </svg>
-
-          <span class="hero-rocket-mask" id="hero-rocket-mask" aria-hidden="true"></span>
         </div>
       </div>
     </div>
@@ -333,21 +397,6 @@
     <p class="footer-copy">&copy; <span id="year"></span> ATWI. Wszystkie prawa zastrzeżone.</p>
   </div>
 </footer>
-
-<div class="hero-rocket" id="hero-rocket" aria-hidden="true">
-  <svg viewBox="0 0 60 92" width="46" height="70">
-    <ellipse cx="30" cy="84" rx="13" ry="4" fill="#4054B2" opacity=".18"/>
-    <path d="M30 2C43 18 47 42 41 64L19 64C13 42 17 18 30 2Z" fill="#8AD2EC"/>
-    <path d="M30 2C37 18 39 42 36 64L30 64Z" fill="#6EC1E4"/>
-    <path d="M19 58 L9 76 L19 68 Z" fill="#4054B2"/>
-    <path d="M41 58 L51 76 L41 68 Z" fill="#4054B2"/>
-    <path d="M21 64 L18 82 L25 70 Z" fill="#6EC1E4"/>
-    <path d="M39 64 L42 82 L35 70 Z" fill="#6EC1E4"/>
-    <circle cx="30" cy="30" r="9" fill="#F4FBFD"/>
-    <circle cx="30" cy="30" r="5.5" fill="#2E3A6B"/>
-    <circle cx="27.5" cy="27.5" r="1.6" fill="#fff" opacity=".8"/>
-  </svg>
-</div>
 
 <script src="js/main.js"></script>
 </body>
